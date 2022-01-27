@@ -1,0 +1,6 @@
+- What is JVM
+  - JVM stands for Java Virtual Machine. It is a virtual machine that enables computer to run Java programs by translating the Java bytecode into native machine code and excute it. JVM achieves the "Write once, run anywhere" goal as long as the target platform has a JVM implementation.
+  - JVM's architecture
+    - Class loader: prepares the Java classes and loads them into main memory
+    - Runtime Memory/Data Area: Holds the runtime variables and data
+    - Execution Engine: Executes the Java program
