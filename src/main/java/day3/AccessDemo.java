@@ -1,24 +1,10 @@
 package day3;
 
-public class AccessModifierDemo {
-
-    AccessDemoChild defaultChild = new AccessDemoChild();
-    public AccessDemoChild publicChild = new AccessDemoChild();
-
-    public static void main(String[] args) {
-        AccessDemo demo = new AccessDemo(1, 2, 3, 4);
-    }
-
-}
-
-class AccessDemoChild extends AccessDemo {
-}
-
-class AccessDemo {
+public class AccessDemo {
     private int num1;
-    protected int num2;
-    public int num3;
-    int num4;   // default access modifier
+    protected int num2; //
+    public int num3;    // public, can be accessed from other packages too
+    int num4;   // default access modifier, can only be accessed within same package
 
     public AccessDemo() {
         this.num1 = 1;
