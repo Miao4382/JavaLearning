@@ -1,0 +1,3 @@
+- Generics
+  - why `List<int> arr = new ArrayList<>();` caused error?
+    - Because of type erasure. At compile time, all the type parameters in generic types are replaced with their bounds or `Object` (if the type parameters are unbounded). However, `int` is primitive type, not a referenced type, it can not be replaced by the bound type or `Object`.

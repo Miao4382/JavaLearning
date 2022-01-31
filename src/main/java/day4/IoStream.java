@@ -15,7 +15,6 @@ public class IoStream {
         OutputStream out = null;
         String outputFilePath = "test2.txt";
 
-        // catch the
         try {
             in = new FileInputStream("test.txt");
             out = new FileOutputStream(outputFilePath);
@@ -34,7 +33,6 @@ public class IoStream {
         }
     }
 
-    //TODO use reader/writer
     public static void characterStreamDemo() throws IOException {
         FileReader fileReader = null;
         FileWriter fileWriter = null;
@@ -55,12 +53,8 @@ public class IoStream {
         }
     }
 
-    //TODO use buffer
-    public static void readLine() {
 
-    }
-
-    // list the number of
+    // list all files in current working directory
     public static void fileDemo() {
         String dir = ".";
         File f = new File(dir);
