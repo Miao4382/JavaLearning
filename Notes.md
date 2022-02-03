@@ -345,3 +345,76 @@ Why Redis is powerful? It supports two kinds of persistence mechanism:
   - view vs. stored procedure
   - view vs. material view
 
+
+# 2022-02-03
+## Transaction
+A transaction is an action, or a series of actions, carried out by a single user or an application. Transaction should follow the ACID principle:
+- A: Atomicity
+  - All transactions are atomic. 
+  - The transaction can't be executed partially.
+  - Only two states possible: Commit or Rollback
+- C: Consistency
+  - Transactions take the database from one consistent state to another state
+- I: Isolation
+  - A transaction is not visible to other transactions until it completes
+- D: Durability
+  - Once the transaction has completed, its changes are made permanent.
+
+A transaction example. We transfer money from account A to account B. The steps are:
+- Read A
+- A = A - 100
+- Write A
+- Read B
+- B = B + 100
+- Write B
+
+The illustration of ACID principle in this example is:
+- Atomicity: all these steps must be atomic. You can't do A - 100 without doing B + 100
+- Consistency: A + B should be the same
+- Inconsistency: other queries shouldn't see A or B's change until the transaction is completed
+- Durability: after finishing the commit, money doesn't go back to A
+
+## Concurrency
+Problems in concurrency:
+- Dirty read: read uncommitted data from another transaction
+- Non-repeatable read: two reads are not consistent. Read committed data from an update query from anther transaction (doing update operation, two reads are before and after the update, the data read is inconsistent)
+- Phantom read: two reads returns different number of results. Read commited data from insert or delete query from another transaction (doing insert or delete operation. Two reads are before and after insert/delete operation)
+
+We use the different isolation level to avoid those problems.
+
+## Lock
+Binary lock
+- The lock has two values, 1 and 0, represents locked or not locked
+- Use an additional column `locked` to store the lock the each row. If the value in this column is 1, it means that row is locked. Otherwise, it is not locked.
+
+Shared and exclusive lock
+- Share lock: also known as read lock (multiple transactions can have the read lock, because the record can be read concurrently)
+- Exclusive lock: write lock (it is exclusive, only one transaction can obtain the lock)
+
+Optimistic lock and Pessimistic lock
+
+Deadlock
+- A deadlock is a state in which each member of a group waits for another member, including itself, to take action
+- Can be detected by checking if there is any cycle in the wait-for-graph 
+
+## Distributed Transaction
+How do we do distributed transaction? We can use 2PC (two phase commit).
+- Phase 1: prepare phase
+  - The coordinator will send prepare message to the servers involved in the distributed transaction. After each server is prepared, a prepared signal will be sent back to the coordinator. So coordinator will know all the server will be ready to do the transaction
+- Phase 2: commit phase
+  - The coordinator will send commit signal to all the servers to actually do the transaction. After the commit is done on one server, the signal will be sent back to coordinator. When the transaction is done (coordinator receives all the done message), coordinator will end the transaction.
+
+One problem for 2PC is that the coordinator will wait for some servers to respond. It may wait indefinitely. We can use other design pattern to solve this problem (e.g. Saga design pattern).
+
+## Assignment
+- Transaction
+  - What is transaction?
+  - How does transaction works on different server (distributed transaction)
+- Lock
+  - What is optimistic lock
+  - What is pessimistic lock
+  - How to solve the deadlock 
+  - (?) What is live lock
+  - (?) 2PL (two phase locking).
+- Distributed transaction
+  - Saga design pattern 
