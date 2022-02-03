@@ -312,3 +312,36 @@ Access modifier
   - Understand the lock concept, what does each keyword mean
   - Future / completeable future
   - Write demo code
+
+# 2022-02-01
+## Assignment
+- Finish all the assignments about Java on LMS (2022/02/03)
+
+# 2022-02-02
+## MongoDB
+
+## Redis
+Usage
+- Cache
+- Distributed lock
+- Message queue (not recommended)
+- Store configuration information
+
+Why Redis is powerful? It supports two kinds of persistence mechanism:
+- RDB (Redis Database): the RDB persistence performs point-in-time snapshots of database at specific intervals.
+- AOF (append only file): the AOF persistence logs every write operation received by the server, what will be played again at server startup, reconstructing original dataset
+
+## SQL vs. No-SQL
+
+## Index
+
+## SQL Tuning and Non-SQL Tuning
+
+
+## Assignment
+- memcache vs. redis (when should we use which)
+- AWS: Elastic Cache (how to set up elastic cache?)
+- SQL/Application Tuning
+  - view vs. stored procedure
+  - view vs. material view
+
