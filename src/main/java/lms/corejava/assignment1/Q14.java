@@ -3,6 +3,9 @@ package lms.corejava.assignment1;
 import java.util.Arrays;
 import java.util.stream.IntStream;
 
+/**
+ * Q14: Write a program to merge two array of int.
+ */
 public class Q14 {
 
     public static void main(String[] args) {

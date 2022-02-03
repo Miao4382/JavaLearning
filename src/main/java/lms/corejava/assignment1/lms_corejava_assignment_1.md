@@ -22,7 +22,7 @@
 4. Is java case sensitive?
    - Yes.
 6. What do the following key words do?
-static, final, public, private, void, null, package, Class, new
+static, final, public, private, void, null, package, class, new
    - `static`
      - Static member: when we define a member as static, it means this member belongs to a type itself, not to an instance of that type. The static member is shared across all instances of the type.
        - Static variable: the variable belongs to a type. e.g. `Integer.MIN_VALUE`
@@ -69,8 +69,8 @@ static, final, public, private, void, null, package, Class, new
 12. How to check if a String is representing a number?
     - We could use `Integer.parseInt()` or `Double.parseDouble()` to parse the string. If no exception is thrown, it means the parsing is successful, which means the string is representing an integer or decimal number.
 13. Write a program to implement the following activity diagram.
-    - Please check `Q13.java` in my repo.
+    - Please check `Q13.java` in my [repo](https://github.com/Miao4382/JavaLearning/tree/master/src/main/java/lms/corejava/assignment1).
 14. Write a program to merge two array of int.
-    - Please check `Q14.java` in my repo.
+    - Please check `Q14.java` in my [repo](https://github.com/Miao4382/JavaLearning/tree/master/src/main/java/lms/corejava/assignment1).
 15. Write a program to find the second largest number inside an array of int.
-    - Please check `Q15.java` in my repo.
+    - Please check `Q15.java` in my [repo](https://github.com/Miao4382/JavaLearning/tree/master/src/main/java/lms/corejava/assignment1).
