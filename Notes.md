@@ -191,6 +191,7 @@ Access modifier
     - `sorted(Comparator<T>)`: Returns a stream consisting of the elements of this stream, sorted according to the provided Comparator. If no comparator is provided, will use the natural order of the object to sort (must override `compareTo()`)
     - `peek(Consumer<? super T> action)`: Returns a stream consisting of the elements of this stream, additionally performing the provided action on each element as elements are consumed from the resulting stream.
   - Terminal operation (returns non stream)
+    - `T reduce(T identity, BinaryOperator<T> accumulator)`: the `reduce()` operation allow us to product one single result from a sequence of elements, by repeatedly applying a combining operation to the elements in the sequence.
     - `boolean anyMatch(Predicate<? super T>) predicate`
     - `boolean allMatch(Predicate<? super T> predicate)`: Returns whether all elements of this stream match the provided predicate. May not evaluate the predicate on all elements if not necessary for determining the result. If the stream is empty then true is returned and the predicate is not evaluated.
     - `void forEach(Consumer<? super T> action)`
