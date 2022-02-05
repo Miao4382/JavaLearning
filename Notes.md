@@ -40,6 +40,13 @@
   - [Lock](#lock)
   - [Distributed Transaction](#distributed-transaction)
   - [Assignment](#assignment-4)
+- [2022-02-04](#2022-02-04)
+  - [SQL](#sql)
+- [Summary](#summary)
+  - [Maven](#maven-1)
+  - [Git](#git)
+  - [Java](#java)
+  - [Database](#database)
 
 
 # 2022-01-25
@@ -300,11 +307,22 @@ Access modifier
 
 **Thread creation**
 - Extends `Thread`
-- Implements `runnable`
-- Implements `callable`
+- Implements `Runnable`
+  - No return value
+  - A `Runnable` task can be executed by Thread or ExecutorService
+- Implements `Callable<T>`
+  - Has one return value of type `T`.
+  - A `Callable<T>` task can only be executed by ExecutorService, by using `executorService.submit(Callable<T> task)`, `invokeAll()`, `invokeAny()`
+  - The `submit()` method will return a special result of type `Future`, which can be used to retrieve the return result of the callable task.
+    - We can call `future.isDone()` to check if the method has finished the execution and returned the result 
+    - We can call `future.get()` to get the result of the executed task.
+      - Calling the method `get()` blocks the current thread and waits until the callable completes.
+      - We can pass in a timeout amount, so the current thread will only be blocked for that amount of time. For example: `future.get(1, TimeUnit.SECONDS)`.
+  - The `invokeAll()` method accepts a collection of `Callable` and returns a list of `Future`.
+  - The `invokeAny()` method accepts a collection of `Callable`, it will block the current thread, until the first callable terminates and returns the result of that callable (notice it is not returning a `Future`, but the actual result of the `Callable` task).
 - Thread pool
 
-**`runnable` vs `callable`**
+**`Runnable` vs `Callable`**
 - no return / has return
 - no exception / has exception
 - override `run()` / override `call()`
@@ -324,7 +342,7 @@ Access modifier
     - DiscardPolicy
     - DiscardOldestPolicy
 
-- Predefined thread pool
+- Builtin thread pool
   - Fixed thread pool
   - Single thread pool
   - Cached thread pool
@@ -333,31 +351,37 @@ Access modifier
 **Lock**
 - Two ways to implement a lock
   - Use `synchronized` keyword
-    - It is used to modify
+    - It is used with:
       - block of code (object level lock?)
       - method (object level lock)
       - static method (class level lock)
-      - class 
+      - class
     - Object level lock, class level lock
-  - Implements the `Lock` interface. `ReentrantLock` is the only class that implements the `Lock` interface
-    - `lock()`
-    - `unlock()`
-    - `newCondition()`
-    - `tryLock()`
-    - `lockInterruptibly()`
-  - `ReadWriteLock` interface
-    - `Lock readLock()`
-    - `Lock writeLock()`
-    - `ReentrantReadWriteLock` class implements this interface
+  - Implements the `Lock` interface:
+    - `ReentrantLock`
+
+Three classes implements `Lock` interface:
+- `ReentrantLock`
+  - `lock()`: call this method to try to acquire the lock. If the lock is not available, thread will be dormant until the lock is available.
+  - `isLocked()`: 
+  - `unlock()`: call this method to unlock the obtained lock
+  - `tryLock()`: try to acquire the lock without pausing the current thread. If the lock is held, then the method will return `false` immediately (no block).
+  - `newCondition()`
+  - `lockInterruptibly()`: acquire the lock unless the current thread is interrupted.
+- `ReentrantReadWriteLock.ReadLock`
+- `ReentrantReadWriteLock.WriteLock`
 
 
 ## Assignment
-- Write study notes for multithreading and lock, including high level explaination and 
+- Write study notes for multithreading and lock, including high level explaination
 - Lock
   - Understand the lock concept, what does each keyword mean
   - Future / completeable future
   - Write demo code
 
+- `Future` vs. `CompletableFuture`
+  - `Future` is used as a reference to the result of an asynchronous computation. We can use `isDone()` to check if the computation is done or not. To get the result of the computation, we can use `get()`.
+  - `CompletableFuture` is an extension to `Future`. It is a class that implements `Future` interface and `CompletionStage` interface, providing additional APIs for managing asynchronous computation, e.g. manually completion, creating, chaining and combining multiple `Futures`.
 # 2022-02-01
 ## Assignment
 - Finish all the assignments about Java on LMS (2022/02/03)
@@ -463,3 +487,307 @@ One problem for 2PC is that the coordinator will wait for some servers to respon
   - (?) 2PL (two phase locking).
 - Distributed transaction
   - Saga design pattern 
+
+# 2022-02-04
+## SQL
+- DDL (Data Definition Language)
+  - Create, drop, alter, truncate
+- DQL (Data Query Language)
+  - select
+- DML (Data Manipulation Language)
+  - insert, update, delete
+- DCL (Data Control Language)
+  - grant, revoke (manage the priviledge of database users)
+- DTL (Data Transaction Language)
+  - commit, rollback
+
+SQL
+- Get familiar with the basic SQL clause
+- Group by
+  - Use `Having` to define the condition of grouping
+- Aggregation function (`group by`)
+  - max, count, min, avg, sum
+- Subquery
+  - Group the subquery into parenthese
+- `rank()` vs. `dense_rank()`
+  - `dense_rank()` only ranks non-equal entity
+- union, union all, intersect, minus
+- join, left join, right join, inner join, outter join
+- Difference between union and join
+  - Union: row-wise combination
+  - Join: column-wise combination
+
+
+# Summary
+## Maven
+- Local, central, remote repository
+- The life cycle of Maven
+- Command line for Maven
+
+## Git
+- How to use git in intellij
+- How to use git in terminal
+- Git workflow
+
+## Java
+- Primitive type
+  - `byte`, `short`, `int`, `long`, `float`, `double`, `boolean`, `char`
+- Wrapper class
+- Autoboxing and unboxing
+- String / StringBuilder / StringBuffer
+- String, Integer constant pool
+- `equals()` / `hashCode()`
+  - We should always override both of them
+- Collection
+  - List
+  - Set
+  - Queue
+  - Map
+  - Comparing between collections
+    - List vs. Set
+    - ArrayList vs LinkedList
+    - heap: PriorityQueue
+    - deque: ArrayDeque
+    - HashMap vs. HashTable vs. ConcurrentHashMap
+    - HashSet, TreeSet, LinkedHashSet
+    - TreeMap, LinkedHashMap
+    - Stack, Queue
+    - Binary tree, balanced binary tree
+- Comparator vs. Comparable
+  - Which method to override
+  - In which case you need what?
+    - `Comparable` interface enables the internal natural order of the class
+- JVM
+  - Classloader
+    - How does class loader load classes
+    - Bootstrap, Extension, Application
+    - Three phases
+      - Loading
+      - Linking
+      - Initialization
+  - Runtime data area
+    - Method areas
+    - Heap
+    - Stack
+    - PC register
+    - Native method stack
+  - Execution engine
+    - Interpreter
+    - JIT compiler
+    - Garbage Collector
+  - Native
+    - Native method interface
+    - Native method library
+- Garbage Collector
+  - Types of GC
+    - Serial GC
+    - Parallel GC
+    - G1 GC
+    - CMS GC (deprecated since Java 9, removed in Java 14)
+  - GC Process
+    - What object stored in each of the following generations? What is the process goes like?
+    - Young Generation
+      - Eden
+      - S0
+      - S1
+    - Old Generation
+    - Permanent Generation
+  - Minor GC, Major GC
+- Keywords (know all the keywords)
+  - 53 keywords
+  - Reserved literals: `true`, `false`, `null`
+  - Unused keywords: `goto`, `const`
+  - 48 used keywords
+    - Primitive type (8)
+    - Control flow
+  - final, finally, finalized
+  - volatile
+  - static
+  - implements vs extends
+  - immutable class
+  - throw vs. throws
+- OOP
+  - Abstraction
+    - Abstract class
+    - Interface
+  - Encapsulation
+    - Private
+    - Setter, getter
+  - Inheritance
+    - Extends
+    - Implements
+  - Polymorphism
+    - Override
+    - Overload
+  - Access modifier
+    - Public
+    - Protected
+    - Default
+    - Private
+- Exception
+  - Checked exception vs. Unchecked exception
+    - Examples of checked exception
+      - IOException
+      - ClassNotFoundException
+    - Examples of unchecked exception
+      - NullPointerException
+  - Exception vs. Error
+  - How to handle exception
+  - How to customize exception
+  - How to define the order of handling multiple exceptions
+  - Try-with resources
+    - All the resources in the try-with block should implement the autoclosable interfac and override the `close()` method
+- Generics basics
+  - What is generics
+  - How do we use generics 
+  - Advantages
+  - Disadvantages
+  - E vs. ?
+    - Difference? When should we use what
+    - `? extends E` meaning
+  - Type erasure
+- IO stream
+  - Byte stream
+  - Character stream
+  - InputStream
+  - OutputStream
+  - Reader
+  - Writer
+  - File
+- Serialization and Deserialization
+  - To make a class serializable, we must implements the mark interface `Serializable`
+  - Use `ObjectInputStream` to serialize 
+  - Use `ObjectOutputStream` to deserialize
+  - Define the serialization ID
+  - Keyword `transient` meaning
+- Java 8 features
+  - Lambda (What? Why? How?)
+    - Objects created by lambda is immutable, and it is thread safe
+  - Functional interface
+    - `@FunctionalInterface`
+    - Predefined functional interface
+      - Predicate -> `test`
+      - Function -> `apply`
+      - Consumer -> `accept`
+      - Supplier -> `get`
+  - Optional
+    - What? Why? How?
+    - `of`, `ofNullable`, `orElse`, `orElseThrow`
+  - Stream
+    - What? Why? How?
+    - Intermediate operation for elements in the collection
+    - Terminal operation
+    - API
+      - `map` vs. `flatmap`
+      - Convert list to map
+  - Method reference
+- Multi thread
+  - Process vs. Thread
+  - Thread state
+    - New
+    - Runnable
+    - Wait
+    - Timed_wait
+    - Block
+    - Terminated
+  - How to create thread
+    - Extends `Thread`
+    - Implement `Runnable`
+    - Implement `Callable`
+    - Thread pool
+  - Thread pool
+    - What is thread pool
+    - Customized thread pool
+      - ThreadPoolExecutor
+        - `corePoolSize`
+        - `maximumPoolSize`
+        - `keepAliveTime`
+        - `unit`
+        - `workQueue`
+        - `threadFactory`
+        - 
+        - Details for ea ch parameter
+    - Built-in thread pool (what is the difference between them, use case for each one)
+      - `newFixedSizedThreadPool`
+      - `newSingleThreadPool`
+      - `newCachedThreadPool`
+      - `newScheduledThreadPool`
+  - Lock
+    - `synchronized` keyword
+      - Difference of using `synchronized` on static method and non-static method
+    - Lock interface
+      - Reentrant lock
+    - `ReadWriteLock` interface
+      - ReentrantReadWriteLock
+- Enum
+
+## Database
+
+- Database vs. DBMS vs. SQL
+- File system vs. database
+- Database normalization
+- Major categories of No-SQL
+  - Document data store
+    - e.g. MongoDB
+  - Key-value data store
+    - e.g. Redis
+  - Graph
+  - Columnar
+- CAP principle
+  - C:
+  - A:
+  - P:
+- Sharding vs. Replica
+  - Sharding: improve performance
+  - Replica: avoid failure
+- MongoDB
+  - Architect
+  - Functionality
+  - Usage
+  - Sharding and replica
+- Redis
+  - How does it is used as a cache
+  - Other functionalities Redis provide
+  - Data structures Redis supports
+  - Persistence mechanism
+  - Usage
+    - As message queue (not recommended)
+    - Configuration server (?)
+- SQL vs. No-SQL
+- Index
+  - Clustered index
+  - Non-clustered index
+- Data structures 
+  - B tree
+  - B+ tree
+- SQL / Application tuning
+  - view vs. stored procedure
+  - view vs. materialized view
+- Transaction
+  - ACID principle
+    - A:
+    - C:
+    - I:
+    - D: 
+- Concurrency
+  - Problems
+    - Dirty read
+    - Non-repeatable read
+    - Phantom read
+  - Isolation level
+    - Levels
+    - Tradeoffs 
+- Lock
+  - Binary lock
+  - Shared lock
+  - Exclusive lock
+  - Optimistic lock
+  - Pessimistic lock
+  - Dead lock
+    - How to detect dead lock
+    - How to prevent dead lock
+- Distributed transaction
+  - Design patterns, when should we choose which one
+    - 2PC
+    - Saga
+- SQL
