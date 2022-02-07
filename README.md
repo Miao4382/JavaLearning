@@ -1,3 +1,4 @@
-# Example
+Java Learning Repo
+==================
 
-Example repository.
+This repo stores study notes and some code examples.

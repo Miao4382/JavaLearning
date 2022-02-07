@@ -26,19 +26,29 @@
   - [Multithread](#multithread)
   - [Assignment](#assignment-1)
 - [2022-02-01](#2022-02-01)
+  - [What is database, database management system (DBMS) and SQL?](#what-is-database-database-management-system-dbms-and-sql)
+  - [File system vs. DBMS](#file-system-vs-dbms)
+  - [Normalization](#normalization)
+  - [NoSQL](#nosql)
+  - [CAP Theorem](#cap-theorem)
+  - [Sharding and Replica](#sharding-and-replica)
   - [Assignment](#assignment-2)
 - [2022-02-02](#2022-02-02)
   - [MongoDB](#mongodb)
   - [Redis](#redis)
+  - [Memchached vs. Redis](#memchached-vs-redis)
   - [SQL vs. No-SQL](#sql-vs-no-sql)
   - [Index](#index)
-  - [SQL Tuning and Non-SQL Tuning](#sql-tuning-and-non-sql-tuning)
+  - [SQL tuning](#sql-tuning)
+  - [Application tuning](#application-tuning)
   - [Assignment](#assignment-3)
 - [2022-02-03](#2022-02-03)
   - [Transaction](#transaction)
   - [Concurrency](#concurrency)
+  - [Isolation Level](#isolation-level)
   - [Lock](#lock)
-  - [Distributed Transaction](#distributed-transaction)
+  - [Distributed Transaction design pattern: 2PC](#distributed-transaction-design-pattern-2pc)
+  - [Distributed transaction design pattern: Saga](#distributed-transaction-design-pattern-saga)
   - [Assignment](#assignment-4)
 - [2022-02-04](#2022-02-04)
   - [SQL](#sql)
@@ -382,34 +392,252 @@ Three classes implements `Lock` interface:
 - `Future` vs. `CompletableFuture`
   - `Future` is used as a reference to the result of an asynchronous computation. We can use `isDone()` to check if the computation is done or not. To get the result of the computation, we can use `get()`.
   - `CompletableFuture` is an extension to `Future`. It is a class that implements `Future` interface and `CompletionStage` interface, providing additional APIs for managing asynchronous computation, e.g. manually completion, creating, chaining and combining multiple `Futures`.
+
 # 2022-02-01
+
+## What is database, database management system (DBMS) and SQL?
+- Database is an organized collection of structured information, or data, typically store electronically in a computer system.
+- DBMS is a software designed to store, retrieve and manage data in the database
+- SQL is short for Structured Query Language. It is a language for managing data held in a relational DBMS.
+
+## File system vs. DBMS
+||File System|DBMS|
+|---|---|---|
+|Usage|Manages files in a storage medium within a computer|Managing the database|
+|Data redundancy|Has redundant data|No redundant data|
+|Backup and recovery|No backup and recovery mechanism|Has backup and recovery mechanism|
+|Query processing|Inefficient|Efficient|
+|Consistency|Lower data consistency|Higher data consistency|
+|Complexity|Less complex|More complex|
+|Security|Less security|More security|
+|Cost|Less expensive|More expensive|
+
+## Normalization
+**What is normalization?**
+- Normalization is a technique of organizing the data in the database. Normalization is a systematic approach of decomposing tables to eliminate data redundancy and undesirable characteristics like insertion, update and deletion anomalies.
+
+**The first three normalization form**
+- 1st normal form
+  - Each column should have atomic values
+  - Each column should have unique name
+  - Each column should have value of the same type
+  - The order in which data is saved doesn't matter
+- 2nd normal form
+  - The table should be in 1st normal form
+  - Table should not have partial dependency (each attribute describes primary key)
+    - For example, if the table's primary key is `student_id` and `subject_id` (the table stores student's score), then other columns in this table should depend on both of the two primary keys, not one of them. So if a column is `teacher_name`, it is not in 2nd normal form, because it depends on `subject_id` only. This is called partial dependency.
+- 3rd normal form
+  - The table should be in 2nd normal form
+  - Table should not have transitive dependency (each attribute should not describe non-primary key)
+    - Transitive dependency means, a non-prim attribute depends on other non-prime attributes, rather than depending upon the primary attributes or primary key. In another word, a column can be uniquely ideitified using another non-primary key column, instead of using primary key alone.
+    - For example, a table `student` uses `id` as the primary key. It has a column `age` and a column `birth date`. This table has transitive dependancy since the `age` column can be uniquely identified using a non-primary key `birth date`.
+
+## NoSQL
+**Advantages of NoSQL**
+- Handles big data efficiently
+- Data models: no predefined schema
+- Data structure: NoSQL handles unstructured data (data stored can have different data structure)
+- Cheaper to manage
+- Scaling: scale out / horizontal scaling
+
+**Advantages of RDBMS**
+- Better for relational data
+- Normalization: organizes the data in a way that limits the redundancy, results in better performance
+- Well known language (SQL)
+- Allows data integrity rules (using constraints)
+- ACID compliance (atomicity, consistency, isolation, durability)
+
+**Types of NoSQL**
+- Document databases
+  - Stores data in format like JSON objects
+  - MongoDB, CouchDB
+- Column databases
+  - Optimized for reading data in columns, instead of rows
+  - Apache Cassandra, Hbase
+- Key-Value stores
+  - Data maintained as key-value pair
+  - Very fast, for huge dataset
+  - Redis, Couchbase server, Riak
+- Cache systems
+  - Redis, Memcache
+- Graph databases
+  - Data in a graph database is seen as a node
+  - A node can have relationship with other nodes (edge)
+  - Huge data set with relations (social networks)
+  - Neo4J, GraphDB
+
+## CAP Theorem
+It formalizes some useful limits on reliability. CAP stands for Consistency, Availability, Partition Tolerance. It formalizes the trade-off between consistency and availability in the presence of partitions.
+- Consistency
+  - All clients always have the same view of the data
+- Availability
+  - Each client can always read and write
+- Partition Tolerance
+  - The system can work well in the presence of physical network partitions
+  - The system continues to operate despite an arbitrary number of messages being dropped (or delayed) by the network between nodes.
+  - When a network partition failure happens, it must be decided whether to
+    - Cancel the operation and thus decrease availability but ensure consistency
+    - Proceed with the operation and thus provide availability but risk inconsistency.
+
+We can only provide two of the three guarantees mentioned above.
+- Consistency + Partition tolerance
+  - Prioritizes partition and consistency of data in the sarcrifice of availability
+  - MongoDB, Hbase, BigTable, Redis
+- Availability + Partition tolerance
+  - Prioritizes availability and partition in the sarcrifice of consistency
+  - Dynamo, Cassandra, SimpleDB, CouchDB
+
+## Sharding and Replica
+**Sharding**
+- Sharding is the practice that distributes a single logical database across a cluster of machine.
+- Problems in Sharding
+  - Joins across shardings
+  - Fixed number of shards (can be solved by splitting shards into smaller shards)
+- Master-Slave architecture
+
+**Replica**
+- Use redundancy to provide failover
+
 ## Assignment
 - Finish all the assignments about Java on LMS (2022/02/03)
 
 # 2022-02-02
 ## MongoDB
+**Architecture**
+- Mongod: database instance
+- Mongos: sharding process
+  - Analogous to a database router
+  - Process all the request based on information in the config server
+  - decide how many/which mongods should receive the query
+- Mongo: interactive shell
+
+**Functionality**
+- Document based database
+- Dynamic schema
+- Secondary indexes
+  - A secondary index, put simply, is a way to efficiently access records in a database (the primary) by means of some piece of information other than the usual (primary) key.
+- Primary-secondary node with automated failover
+- Built-in horizontal scaling via automated range based partitioning of data (sharding)
+- Follows CP (Favor Consistency-Partition Tolerance over Availability)
+
+**MongoDB Atlas**
+- MongoDB Atlas is a multi-cloud database service.
 
 ## Redis
-Usage
+
+Redis stands for Remote Directory Server. It is Key-Value store NoSQL database
+
+**Redis feature**
+- In memory database
+- Key-Value data store
+- Supports storing value in different kinds of data structure
+  - String
+  - List
+  - Sets
+  - Sorted sets
+  - Hashes
+
+**Usage**
 - Cache
 - Distributed lock
 - Message queue (not recommended)
 - Store configuration information
 
 Why Redis is powerful? It supports two kinds of persistence mechanism:
-- RDB (Redis Database): the RDB persistence performs point-in-time snapshots of database at specific intervals.
-- AOF (append only file): the AOF persistence logs every write operation received by the server, what will be played again at server startup, reconstructing original dataset
+- RDB (Redis Database File): the RDB persistence performs point-in-time snapshots of database at specific intervals.
+- Journaling via AOF (append only file): the AOF persistence logs every write operation received by the server, what will be played again at server startup, reconstructing original dataset
+
+## Memchached vs. Redis
+Memchached and Redis are both in memory Key-Value store NoSQL database. **Similarities**
+- Sub-millisecond latency: they keep data in memory, so they are very fast
+- Data partitioning: both allow distributing data across multiple nodes
+- Support for a broad set of programming languages (Java, Python, JavaScript, C, Ruby)
+- High scalability: both of them offer high scalability to handle large data
+
+**Differences**
+- Advanced data structures
+  - Memcached stores key-value pairs as a string and has a 1MB size limit per value.
+  - Redis supports other data structure such as list, set, sorted set, hash. It can store values of up to 512MB in size.
+- Multithreaded architecture
+  - Memcached has a multi-threaded architecture. It performs better than Redis when storing larger datasets.
+  - Redis is single-threaded (except for asynchronous data persistence task)
+- Disk I/O dumping
+  - Memcached does not support disk dumping. Third-party tools are required to perfom such task.
+  - Redis provides highly configurable mechanisms like RDB (snapshot and save Redis database file) or AOF (journaling via append-only files).
+- Replication
+  - Memcached does not support replication. Third-party forks (like repcached) have implemented this feature.
+  - Redis supports replication out-of-the-box.
+- Transaction
+  - Memcached does not support transactions, although its operations are atomic.
+  - Redis supports for transactions to execute commands.
+- Publication/Subscription messaging
+  - Memcached does not support pub/sub messaging.
+  - Redis provides functionality to publish and subscribe to messages using pub/sub message queues.
+- LUA scripting
+  - Memcached does not support LUA scripting
+  - Redis provides commands like `EVAL` and `SCRIPT LOAD` which are useful for the execution of the LUA scripts.
+- Geospatial support
+  - Memcached does not support geospatial feature.
+  - Redis provides commands to manage real-time geospatial data.
+
+Generally speaking, Redis outperforms memcached by offering richer functionality and various features that are promising for complex use-cases.
 
 ## SQL vs. No-SQL
+|SQL|NoSQL|
+|---|---|
+|For relational database|For non-relational database|
+|Pre-defined schema|Dynamic schema|
+|Can scale vertically|Can scale horizontally|
+|ACID principle|CAP theorem|
+|Not suited for hierarchical data store|Suited for hierarchical store|
+
 
 ## Index
+Indexing is a way to optimize the performace of database by minimizing the number of the disk access required when a query is processed.
+- Clustered index (primary index)
+  - It defines the order in which data is physically stored
+  - Only one clustered index per table
+  - When you apply primary key to a column, that column (primary key) will automatically become clustered index
+- Non-clustered index (secondary index)
+  - Can have multiple non-clustered index
+  - Doesn't sort the physical data in table
+  - Non-clustered index node stores the reference to the physical record
 
-## SQL Tuning and Non-SQL Tuning
+**Data structures**
+- B+ tree
+- Bitmap
+- Hashtable
+- R tree
 
+
+## SQL tuning
+SQL tuning: database tuning describes a group of activities used to optimize and homogenize the performance of a database. It usually overlaps with query tuning, but refers to design of the database files, selection of the database management system application, and configuration of the database's environment.
+
+Some tips:
+- Using execution plan to identify the cause of slowness
+  - Execution plan is a set of instructions that describes which process steps are performed while a query is executed by the database engine.
+  - You can use tools supported by the DBMS to generate the execution plans. For example, in PostgreSQL, you can use command `EXPLAIN` to generate the execution plan for specified statement.
+- Try to reduce joins, remove unused join and join conditions
+- Use the index to improve the performace
+- Union all instead of union
+- Use `LIMIT`
+- Use View or stored procedure
+
+## Application tuning
+- Check the DB query
+  - do the SQL tuning
+- DB connection usage
+  - check the connection pool
+- Do JVM tuning
+  - Jstack, JMap, JConsole
+- Server side
+  - CPU, memory usage by using commands like `top`, `ps`
+- Code review
+- Check networking, firewall, load balancer
 
 ## Assignment
 - memcache vs. redis (when should we use which)
-- AWS: Elastic Cache (how to set up elastic cache?)
+- AWS: Elastic Cache
 - SQL/Application Tuning
   - view vs. stored procedure
   - view vs. material view
@@ -451,29 +679,63 @@ Problems in concurrency:
 
 We use the different isolation level to avoid those problems.
 
+## Isolation Level
+Isolation level means the how two concurrent transactions are isolated with each other.
+
+|Isolation Level|Dirty Reads|Unrepeatable Reads|Phamtom Reads|
+|---|---|---|---|
+|Read uncommited|Y|Y|Y|
+|Read commited|N|Y|Y|
+|Repeatable Read|N|N|Y|
+|Serializable|N|N|N|
+
+Different isolation levels can avoid the above mentioned problems at different level.
+
 ## Lock
-Binary lock
+**Binary lock**
 - The lock has two values, 1 and 0, represents locked or not locked
 - Use an additional column `locked` to store the lock the each row. If the value in this column is 1, it means that row is locked. Otherwise, it is not locked.
 
-Shared and exclusive lock
+**Shared and exclusive lock**
 - Share lock: also known as read lock (multiple transactions can have the read lock, because the record can be read concurrently)
 - Exclusive lock: write lock (it is exclusive, only one transaction can obtain the lock)
 
-Optimistic lock and Pessimistic lock
+**Optimistic lock**
+- The optimistic lock strategy is when you read a record, take note of a stamp/version number. When you want to read/write to that record, check if the stamp has changed. If it has changed (it means the record is dirty), the transaction should be aborted
+- This strategy is most applicable to high-volume systems and three-tier architectures where you do not necessarily maintain a connection to the database for your session. In this situation the client cannot actually maintain database locks as the connections are taken from a pool and you may not be using the same connection from one access to the next.
+**Pessimistic lock**
+- Pessimistic lock will lock the record for you exclusively until you have finished all the transaction operation. It has better integrity than optimistic lock at the expense of more overhead.
 
-Deadlock
+**Deadlock**
 - A deadlock is a state in which each member of a group waits for another member, including itself, to take action
 - Can be detected by checking if there is any cycle in the wait-for-graph 
 
-## Distributed Transaction
-How do we do distributed transaction? We can use 2PC (two phase commit).
+## Distributed Transaction design pattern: 2PC
+Two phase commit is a design pattern for distributed transaction.
 - Phase 1: prepare phase
-  - The coordinator will send prepare message to the servers involved in the distributed transaction. After each server is prepared, a prepared signal will be sent back to the coordinator. So coordinator will know all the server will be ready to do the transaction
+  - The coordinator will send prepare message to the servers involved in the distributed transaction. After each server is prepared, a prepared signal will be sent back to the coordinator. So coordinator will know all the server will be ready to do the transaction.
 - Phase 2: commit phase
   - The coordinator will send commit signal to all the servers to actually do the transaction. After the commit is done on one server, the signal will be sent back to coordinator. When the transaction is done (coordinator receives all the done message), coordinator will end the transaction.
 
 One problem for 2PC is that the coordinator will wait for some servers to respond. It may wait indefinitely. We can use other design pattern to solve this problem (e.g. Saga design pattern).
+
+## Distributed transaction design pattern: Saga
+The Saga design pattern is a way to manage data consistency across microservices in distributed transaction scenarios. A saga is a sequence of transactions that updates each service and publishes a message or event to trigger the next transaction step. If a step in the sequence fails, the saga executes compensating transactions that counteract the preceding transactions.
+
+**Transaction types in Saga**
+- Compensable transaction: transactions that can potentially be reversed
+- Pivot transaction: if the pivot transaction commits, the saga runs until completion.
+- Retryable transactions: they are transactions follow the pivot transaction and are guaranteed to succeed.
+
+**Two common implementation approaches**
+- Choreography
+  - Event based
+  - Saga participants exchange events without a centralized control.
+  - Each local transaction publishes domain events that trigger local transactions in other services.
+- Orchestration
+  - Command based
+  - Use a centralized controller (saga orchestrator) tells the saga participants what local transactions to execute.
+  - The saga orchestrator handles all the transactions and tells the participants which operations to perform based on the events. It also handles failure recovery with compensating transactions.
 
 ## Assignment
 - Transaction

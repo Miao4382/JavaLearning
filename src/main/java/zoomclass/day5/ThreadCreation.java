@@ -1,4 +1,4 @@
-package zoomclass.MultiThread;
+package zoomclass.day5;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
