@@ -32,6 +32,7 @@ public class TransientDemo {
  * To make a class serializable, we must implement the Serializable interface
  */
 class Employee implements Serializable {
+    static final long serialVersionUID = 1L;
     private String name;
     private String department;
     // this field is marked as transient, so it will not be serialized

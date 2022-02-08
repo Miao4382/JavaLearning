@@ -17,7 +17,7 @@ import java.util.concurrent.locks.StampedLock;
 public class StampedLockDemo {
 
     public static void main(String[] args) {
-        convertLockDemo();
+        optimisticLock();
     }
 
     // shows how the optimistic lock works. When writeLock() is acquired, it can make previously acquired readLock()

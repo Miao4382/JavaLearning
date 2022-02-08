@@ -20,6 +20,11 @@ public class EnumDemo {
         System.out.println("zoomclass.day2 = " + day2);
 
         System.out.println("Check ordinal, Size.MEDIUM.ordinal() == " + Size.MEDIUM.ordinal());
+
+        // you can sort the enum object using the ordinal() method to provide the sorting order
+        Weekday[] days = Weekday.values();
+        Arrays.sort(days, (o1, o2) -> o2.ordinal() - o1.ordinal());
+        System.out.println(Arrays.toString(days));
     }
 
 }

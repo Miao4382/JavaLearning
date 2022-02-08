@@ -6,6 +6,7 @@
 - [2022-01-26](#2022-01-26)
   - [HashMap](#hashmap)
   - [Stack](#stack)
+  - [Comparisons](#comparisons)
   - [Coding Example](#coding-example)
     - [Object in sorted collection](#object-in-sorted-collection)
   - [Homework](#homework)
@@ -102,11 +103,23 @@ You can also use LinkedList to implement the Deque interface:  `Deque<Integer> s
 
 
 
+## Comparisons
+**List vs. Set**
+|List|Set|
+|---|---|
+|Ordered sequence|Unordered sequence|
+|Allows duplicate|Doesn't allow duplicate|
+|Provides random access|No random access allowed|
+
+**HashTable vs. ConcurrentHashMap**
+- HashTable uses single lock for the whole map, while the latter uses multiple locks on segment level (16 by default) instead of object level.
+- In ConcurrentHashMap, locking is applied only for updates. In case of retrievals, it allows full concurrency, retrievals reflect the results of the most recently completed update operations. So reads can happen very fast while writes are done with a lock.
+
 ## Coding Example
 
 ### Object in sorted collection
 
-Your custom object should implement the Comparable interface to define the way to compare the custom object (override the Comparable interface).
+Your custom object should implement the Comparable interface to define the way to compare the custom object (implements the Comparable interface).
 
 Or you need to provide the Comparator when you define the sorted collection.
 

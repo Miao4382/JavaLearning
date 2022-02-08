@@ -21,10 +21,15 @@ public class ThreadPoolDemo {
                 abortPolicy
         );
 
+        // we are pushing ten tasks to the thread pool to execute. After the maxPoolSize has been reached, additional
+        // tasks will be put to the blockingQueue. The size of the blockingQueue is set to 4, so when the last task come
+        // in, the queue is full. A RejectedExecutionException will be thrown
         for (int i = 0; i < 10; i++) {
             int finalI = i;
             threadPool.execute(() -> System.out.println(Thread.currentThread().getName() + " is running for i = " + finalI));
         }
+
+        threadPool.shutdown();
     }
 
     static void predefinedThreadPoolDemo() {

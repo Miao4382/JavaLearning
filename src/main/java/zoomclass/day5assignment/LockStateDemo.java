@@ -30,6 +30,9 @@ public class LockStateDemo {
             System.out.println("Did I acquire the lock: " + grabLock);
         };
 
+        // you will notice that after the acquisition of the lock by the lockTask, additional messages show the lock is
+        // not held by future threads, and they could not acquire the lock. This is because in the lockTask, the lock is
+        // never unlocked.
         executor.scheduleAtFixedRate(lockTask, 0, 500, TimeUnit.MILLISECONDS);
     }
 }
