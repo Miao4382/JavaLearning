@@ -38,7 +38,7 @@
     |Random access|Yes|No|Yes|
     |Insert/Delete time complexity|$O(n)$|$O(1)$|$O(n)$|
     |Interface implemented|`List`|`List`, `Deque`|`List`|
-    |Thread safe|No|Yes|No|
+    |Thread safe|No|No|Yes|
     |Is legacy class|No|No|Yes|
     
 11. What’s the difference between `HashTable` and `HashMap`?

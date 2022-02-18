@@ -58,6 +58,24 @@
   - [Git](#git)
   - [Java](#java)
   - [Database](#database)
+- [2022-02-14](#2022-02-14)
+  - [JDBC](#jdbc)
+    - [Commit and Rollback](#commit-and-rollback)
+    - [Prevent SQL injection](#prevent-sql-injection)
+  - [Hibernate](#hibernate)
+  - [Assignment](#assignment-5)
+- [2022-02-15](#2022-02-15)
+  - [Hibernate](#hibernate-1)
+  - [Assignment](#assignment-6)
+- [2022-02-16](#2022-02-16)
+  - [TCP Protocol](#tcp-protocol)
+  - [Web resources](#web-resources)
+  - [Web Server](#web-server)
+  - [Assignment](#assignment-7)
+- [2022-02-17](#2022-02-17)
+  - [HTTP Request](#http-request)
+  - [Servlet](#servlet)
+  - [Assignment](#assignment-8)
 
 
 # 2022-01-25
@@ -510,6 +528,7 @@ We can only provide two of the three guarantees mentioned above.
 
 **Replica**
 - Use redundancy to provide failover
+- May increase availability (CAP theorem)
 
 ## Assignment
 - Finish all the assignments about Java on LMS (2022/02/03)
@@ -681,7 +700,7 @@ A transaction example. We transfer money from account A to account B. The steps 
 The illustration of ACID principle in this example is:
 - Atomicity: all these steps must be atomic. You can't do A - 100 without doing B + 100
 - Consistency: A + B should be the same
-- Inconsistency: other queries shouldn't see A or B's change until the transaction is completed
+- Isolation: other queries shouldn't see A or B's change until the transaction is completed
 - Durability: after finishing the commit, money doesn't go back to A
 
 ## Concurrency
@@ -1066,3 +1085,106 @@ SQL
     - 2PC
     - Saga
 - SQL
+
+
+# 2022-02-14
+## JDBC
+Steps to use JDBC to connect to database
+- Allocate a connection object, for connecting to the database
+- Allocate a statement object, based on the connection
+- Write the sql query and execute the query
+- Process the query result
+- Close the statement and connection object to free up the resources
+
+[The JDBC demo](https://github.com/Arthur-Shuahua-Zhang/JDBC-Demo)
+
+### Commit and Rollback
+Have to set the auto commit to false, so we can manually make the commit.
+```java
+conn.setAutoCommit(false);
+```
+Check `JdbcTransactionTest.java` for demo.
+
+We can use the `rollBack()` in the catch block if there is anything wrong happened in the try block.
+
+### Prevent SQL injection
+Using prepared statement to avoid sql injection. See `JdbcPreparedStatementTest.java` for details.
+
+## Hibernate
+Higher level of database abstraction. Object Relational Mapping.
+- What is ORM
+  - ORM can establish the relationship between a Java object and a database table.
+- ORM Libraries
+  - Hibernate
+  - Sequelize
+  - MyBatis
+  - Doctrine 2
+  - SQL Alchemy
+
+## Assignment
+Difference between
+- Statement
+- Prepared statement
+- Callable statement
+
+Setup local mysql database and try the CRUD operation
+
+# 2022-02-15
+## Hibernate
+
+## Assignment
+- Hibernate demo (use different ddl policy to create tables?)
+- Query in Hibernate
+  - HQL
+  - Criteria query
+  - Native sql
+
+# 2022-02-16
+## TCP Protocol
+- 3-way handshake
+- Transmission
+- Close a TCP connection
+## Web resources
+- Static resources
+- Dynamic resources
+
+## Web Server
+- Tomcat
+- Jboss
+- GlassFish
+- Resin
+- WebLogic
+
+## Assignment
+- Create google doc about the learning road map
+  - JDBC
+    - Work on the demo project of basic JDBC functionality
+  - Hibernate
+    - Work on the demo project of basic Hibernate functionality
+    - Explore HQL
+    - Hibernate caching
+  - Review TCP protocol
+  - Web server
+    - What does web server achieve
+    - 
+
+# 2022-02-17
+## HTTP Request
+- Different types of request
+  - GET request
+  - POST request
+  - DELETE request
+- Response code
+  - We need to use different codes for more information, see [HTTP response](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status)
+    - 200
+    - 201
+    - 202
+    - 203
+    - 204
+    - ...
+
+## Servlet
+
+
+## Assignment
+- Create and update the daily report google doc
