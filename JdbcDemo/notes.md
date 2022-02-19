@@ -1,6 +1,21 @@
 JDBC Demo
 =========
 
+- [JDBC Demo](#jdbc-demo)
+- [Preparation](#preparation)
+  - [Set up postgres database](#set-up-postgres-database)
+  - [Create tables used in the demo](#create-tables-used-in-the-demo)
+- [JDBC Functionality Demos](#jdbc-functionality-demos)
+  - [Select Demo](#select-demo)
+  - [Update Demo](#update-demo)
+  - [Insert Delete Demo](#insert-delete-demo)
+  - [Commit and rollback](#commit-and-rollback)
+  - [`PreparedStatement`](#preparedstatement)
+  - [Batch processing](#batch-processing)
+    - [Using `Statement`](#using-statement)
+    - [Using `PreparedStatement`](#using-preparedstatement)
+  - [CallableStatement](#callablestatement)
+
 # Preparation
 ## Set up postgres database
 To test JDBC functionality, we need to set up a database. This note uses postgresql docker container. The steps are as follows:
