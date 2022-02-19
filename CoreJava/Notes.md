@@ -76,6 +76,14 @@
   - [HTTP Request](#http-request)
   - [Servlet](#servlet)
   - [Assignment](#assignment-8)
+- [2022-02-18](#2022-02-18)
+  - [Request forward](#request-forward)
+  - [Forward Request](#forward-request)
+  - [Reflection API](#reflection-api)
+  - [Proxy design pattern](#proxy-design-pattern)
+  - [Singleton design pattern](#singleton-design-pattern)
+  - [Factory design pattern](#factory-design-pattern)
+  - [Builder design pattern](#builder-design-pattern)
 
 
 # 2022-01-25
@@ -1188,3 +1196,21 @@ Setup local mysql database and try the CRUD operation
 
 ## Assignment
 - Create and update the daily report google doc
+
+# 2022-02-18
+## Request forward
+Servlet request forward.
+
+## Forward Request
+
+## Reflection API
+
+## Proxy design pattern
+- Static proxy
+- Dynamic proxy (use reflection APIs)
+
+## Singleton design pattern
+
+## Factory design pattern
+
+## Builder design pattern

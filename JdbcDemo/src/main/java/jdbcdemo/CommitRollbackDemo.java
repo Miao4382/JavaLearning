@@ -4,7 +4,7 @@ import jdbcdemo.dbconfig.JdbcConfig;
 
 import java.sql.*;
 
-public class CommitRollback {
+public class CommitRollbackDemo {
     public static void main(String[] args) throws SQLException {
         try (
                 Connection conn = DriverManager.getConnection(
@@ -18,7 +18,8 @@ public class CommitRollback {
             String countQuery = "select count(*) as total_book from books";
             ResultSet resultSet = statement.executeQuery(countQuery);
             if (resultSet.next())
-                System.out.println("Before inserting test, total number of books: " + resultSet.getInt("total_book"));
+                System.out.println("Before inserting test, total number of books: " +
+                        resultSet.getInt("total_book"));
 
             // test rollback a commit
             try {

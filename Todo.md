@@ -1,12 +1,13 @@
 # Todo list
 Study plans
-- [ ] Jdbc demo (shows the basic functionality of JDBC library)
+- [x] Jdbc demo (shows the basic functionality of JDBC library)
   - [x] Select
   - [x] Insert and delete
   - [x] Update
   - [x] Commit and rollback
   - [x] Prepare statement
-  - [ ] Batch statement 
+  - [x] Batch statement 
+  - [x] Callable statement
 - [ ] Hibernate demo
 - [ ] Servlet demo
   - [x] Set up Tomcat server
