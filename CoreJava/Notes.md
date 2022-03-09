@@ -84,6 +84,25 @@
   - [Singleton design pattern](#singleton-design-pattern)
   - [Factory design pattern](#factory-design-pattern)
   - [Builder design pattern](#builder-design-pattern)
+- [2022-02-21](#2022-02-21)
+  - [Resources](#resources)
+  - [Topics](#topics)
+- [2022-02-22](#2022-02-22)
+  - [Spring Introduction](#spring-introduction)
+- [2022-02-23](#2022-02-23)
+  - [Some interview questions](#some-interview-questions)
+  - [Movie Demo](#movie-demo)
+- [2022-02-24](#2022-02-24)
+- [2022-02-25](#2022-02-25)
+- [2022-02-28](#2022-02-28)
+- [2022-03-01](#2022-03-01)
+- [2022-03-02](#2022-03-02)
+- [2022-03-03](#2022-03-03)
+- [2022-03-04](#2022-03-04)
+  - [Attacks](#attacks)
+  - [Security login](#security-login)
+- [2022-03-07](#2022-03-07)
+- [2022-03-09](#2022-03-09)
 
 
 # 2022-01-25
@@ -1214,3 +1233,288 @@ Servlet request forward.
 ## Factory design pattern
 
 ## Builder design pattern
+
+# 2022-02-21
+## Resources
+- Study road map
+- [Antra Java Repository](https://github.com/AntraJava)
+
+## Topics
+- OSI models (7 layers)
+  - Application
+  - Presentation
+  - Session
+  - Transport
+  - Network
+  - Data link
+  - Physical
+- Java EE
+  - It is a specification for creating web server (listening to a port, processing the request, etc.)
+- Tomcat
+  - It is a web server that implements Java EE specification. It handles the server logics.
+  - Servlet
+    - The class that provides business logic in the web server (this portion of code is executed after web server receives and parsed the incoming request)
+    - We need to implement business logic using a `Servlet`
+    - Tomcat will invoke servlet we define when received a request to the specific url we declared in that servlet
+- HTTP structure
+  - Request
+    - Header
+    - Body
+  - Response
+    - Header
+    - Body
+
+# 2022-02-22
+## Spring Introduction
+
+# 2022-02-23
+## Some interview questions
+- What is the advantage of Spring
+  - Spring is using factory design pattern (hiding the creation of objects)
+- Bean scope
+  - Default bean scope for Spring: singleton
+- Injection type
+  - Field injection
+    - Not recommended because it can not be unit-tested easily
+    - Does not have flexibility (in constructor and setter we can define additional logics)
+  - Constructor injection
+    - Recommended dependancy injection (easy for testing)
+  - Setter injection
+- Configuration class
+  - Use it to add beans (use `@Bean` annotation together with method defined in configuration class to specify a bean of some types in library (for example `List`)).
+    - The method name is the default bean name
+    - We can add the bean name in the `@Bean("")` annotation to specify the bean to be created
+    - We can use `@Primary` annotation to specify the default bean of some type
+- AOP
+  - Not very object orienated programming
+    - May not easy to read (do not write your own AOP code)
+    - Hard to debug
+    - Better not write your own AOP
+  - Internally, AOP uses Proxy design pattern
+  - What is AOP (be able to explain the concepts)
+  - Predefined AOP annotations
+    - `@Secured("ROLE")` checking for APIs (use AOP)
+    - `@Transactional`
+
+## Movie Demo
+- Create the repository class of our own (use `EntityManager` to handle the mapping between entity and database table).
+
+# 2022-02-24
+Continue discussing the basic structure of a Spring app (REST APIs).
+
+An important REST APIs demo: [Antra REST API Demo](https://github.com/AntraJava/RestDemo).
+
+# 2022-02-25
+- `VO`: Value Object, only used for storing data. Not used to map to database. Also `DTO` (Data transfer object)
+  - Difference between the entity class and DTO class
+    - DTO: used to transfer data between clients
+    - Entity: used to persist to database. The fields of DTO and Entity may not be the same
+- The object in the returned entity better be DTO, instead of the entity class.
+- Use `BeanUtils.copyProperties()` to construct an entity class from the DTO class (fields with same name will be copied to the new entity class).
+  - Can be used to create new object
+  - Can be used to copy property from DTO to an entity class `copyProperties(DTO, Entity)`
+- REST Pagination
+  - Manual implementation
+  - Spring Data
+- Validation of input data
+  - Manual validation in controller (not recommended, do not increase the size of controller).
+  - Use bean validation
+    - Should add `spring-boot-starter-validation` dependency (hibernate validator implements [`javax.validation.constraints`](https://docs.oracle.com/javaee/7/api/javax/validation/constraints/package-summary.html)). Use validation annotation in the DTOs to validate object in the request body, for example `@NotNull` indicates a field could not be null.
+    - The validation check will not be invoked if you only annotate in the DTO class. In addition, you should add `@Validated` in the parameter inside the controller. For example:
+    ```java
+        createProduct(@Validated @RequestBody ProductDTO product)
+    ```
+    - When the validation failed, a `MethodArgumentNotValidException` will be thrown, so you can add an exception handler to handle this exception and customize the returned data.
+- Exception handling
+  - Using AOP to implement
+  - `@ExceptionHandler` annotation to mark a method to be invoked when a certain exception is invoked.
+  - Use `@ControllerAdvice` to develop global exception handler.
+  
+- Logging
+  - Use logger in the application when something bad happens.
+  - You can specify logger level in `application.properties` file
+  - Log message can be written to a file (`logback`)
+  - Using `lombok`, you can use `@Slf4j` to add the logger field
+- lombok library
+  - `@Getter`
+  - `@Setter`
+
+LMS mock link:
+
+[Mock link](https://lms-mock.antrasep.com/login)
+
+# 2022-02-28
+
+- We can use `Accept` field in the request header to specify the format of the response of the API.
+- In the controller method, we can use `produces = ` tag in the mapping annotation to specify the return type of the API
+- In the controller method, we can use `consumes = ` tag in the mapping annotation to specify the parameter type of the request
+
+Documentation tool
+- Swagger documentation
+  - Development steps
+    - Add Swagger dependency in the pom.xml
+    - Create a swagger configure class
+    - Use Swagger annotations to specify the API documentation
+    - For local test, after boosting the backend app, visit `localhost:8080/swagger-ui` to check the auto-generated documentation (change the port number to the one being used)
+- Use Swagger editor to write up the documentation first and then generate the code based on this document
+
+Frontend angular
+- Create a simple project using angular as the frontend that consume the backend APIs
+
+Consume API in backend
+- Use `RestTemplate` class
+- Declarative
+- Open feign framework: We can use this framework to consume an API in our backend.
+- If the returned JSON file has field name different from the field name used in the Java class (which we will instantiate using the response of external API), we can use `@JsonProperty` annotation in the class field to indicate the matching field
+
+# 2022-03-01
+Class cancelled.
+
+# 2022-03-02
+Micro services.
+
+
+- Design pattern
+  - SOA (Service-Oriented Architecture): design the services, design the I/O
+    - ESB, Enterprise Service Bus (e.g. MuleSoft). It combines services together, act as a centralized interface that link different services
+  - Micro services: split a big project into small services (micro services), they can be implemented and run separately. They work together to achieve the bigger object. It is resillient, scalable.
+
+Micro service: dynamic scale of micro-service.
+
+Example repo: [two sum](https://github.com/AntraJava/twosum)
+- `twosum_main` is the service A
+- `calculate_fast_service` is the service B
+- How to dynamically discover the service? Use service discovery (there are frameworks to do this job. for example, Netflix Euraka)
+  ```xml
+  <dependency>
+      <!-- Eureka for service registration -->
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-eureka-server</artifactId>
+  </dependency>
+  ```
+  In the service, we need to write code to register with Euraka.
+- Ribbon, load balancing framework. Has its own list of service cached (from Euraka)
+- Configuration service
+  - Each service has its own `application.properties` and configurations.
+  - This server hosts all the configurations
+
+
+# 2022-03-03
+Continue to talk about microservice. Distributed services have a lot of challenges.
+
+- Monolithic
+  - It means everything is one package.
+  - Compare to SOA, ESB, microservices, it is relatively easy in architecture
+  - Difficult to scale
+
+LMS `Java Architecture.pdf`
+- Monolithic single server
+- Front-Back Separation
+  - Still monolithic in nature (each application server has complete code)
+  - Load balancing by WebServer
+- Scaling, Private Net (segregation of network)
+  - Private network: can not be accessed by normal user
+  - Public network: exposed to potential hacking.
+  - Use a separate, dedicated load balancer (dynamic load balancer, application can be scaled)
+  - Log aggregation server: centralize all the logs, so developers can query and monitor the logs
+- Cloud components
+  - Similar with scaling, private Net
+  - Added components: AWS, docker
+  - Notice that the services are still monolithic (each docker instance has the complete logic code)
+
+
+Spring framework
+- sleuth
+  - Distributed log tracing in microservices
+  - Run on each individual service
+  - Check the http header of the request for `trace id` and `span id`. 
+  - Request generated by services will be tagged by sleuth with the id information
+  - It is possible to trace all logs associated with a particular request
+- zipkin
+  - A server which collect all the logs from sleuth and filter out all the logs generated by a certain request
+
+Elastics log analyzing.
+
+Health check.
+- Grafana
+- Spring boot acuator
+
+The control APIs user can access.
+- [MyIOT project](https://github.com/AntraJava/MyIOT)
+
+**Resilient**
+
+# 2022-03-04
+Security
+
+- Encryption-Decryption
+  - Symmetric
+    - has 1 key, fast
+  - Asymmetric
+    - has 2 keys, slow
+  - What is the difference between symmetric and asymmetric
+- Encode
+  - URL encoding: encode special character in the url (for example Chinese characters)
+    - For example `%2f` is the encoding of `/` special character
+- Hash
+  - Signature of a particular file (hash + encryption)
+  - Digest?
+  - MD5
+  - SHA
+
+Demo
+- `URLEncoder`
+- `Base64`: encode file (binary to text)
+- Encryption decription
+
+Json Web Token: a json file encoded into a string by using base64.
+- Why it is used
+- Is it encrypted? (no it does not hide any information, does not encryt any information)
+
+Error code
+- Authentication failure error code: 401 (unauthenticated)
+- Authorization failure error code: 403 (unauthorized)
+
+Https
+
+## Attacks
+- SQL injection
+  - What it is?
+  - How to prevent it?
+- Cross site scripting (XSS)
+  - What it is?
+  - How to prevent it?
+- Cross site request forgery (CSRF)
+  - What it is?
+  - How to prevent it?
+
+## Security login
+- LDAP (Lightweight Directory Access Protocol)
+- OAuth
+- Open id
+
+
+# 2022-03-07
+Message queue.
+- Definition
+- Why we need it
+
+
+Kafka
+- Producer
+- Consumer
+  - Consumer group
+- Broker
+- Topic
+- Partition
+- Replica
+- Leader
+- Follower
+- Rebalance
+
+Interview question:
+- Do you have any experience in Kafka
+- Talk about how you use kafka in your project
+- What is Kafka based on 
+
+# 2022-03-09
