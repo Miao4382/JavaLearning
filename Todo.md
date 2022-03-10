@@ -8,10 +8,10 @@ Study plans
   - [x] Prepare statement
   - [x] Batch statement 
   - [x] Callable statement
-- [ ] Hibernate demo
-- [ ] Servlet demo
-  - [x] Set up Tomcat server
-  - [x] Build a simple servlet demo
-    - [ ] Servlet configuration
-    - [ ] Returns a simple html page
-    - [ ] Deploy to Tomcat server and test
+- [x] Spring Rest API + Spring data jpa demo
+- [ ] Spring microservices
+  - [ ] Demo
+  - [ ] Review microservice related questions
+- [ ] Message queue
+  - [ ] Demo
+  - [ ] Review message queue related questions

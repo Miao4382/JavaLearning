@@ -102,7 +102,10 @@
   - [Attacks](#attacks)
   - [Security login](#security-login)
 - [2022-03-07](#2022-03-07)
+- [2022-03-08](#2022-03-08)
 - [2022-03-09](#2022-03-09)
+  - [Some Questions](#some-questions)
+  - [History and Why](#history-and-why)
 
 
 # 2022-01-25
@@ -1272,14 +1275,23 @@ Servlet request forward.
 - What is the advantage of Spring
   - Spring is using factory design pattern (hiding the creation of objects)
 - Bean scope
-  - Default bean scope for Spring: singleton
+  - Singleton: default bean scope
+  - Prototype
+  - Session
+  - Request
+  - Application
+  - Websocket
 - Injection type
   - Field injection
-    - Not recommended because it can not be unit-tested easily
+    - It was popular before SpringBoot 2.0
+    - Not recommended now because it can not be unit-tested easily
     - Does not have flexibility (in constructor and setter we can define additional logics)
+    - May cause `null` pointer exception, because the injection allows a certain component bean is null, before the bean is used (instantiated).
   - Constructor injection
+    - The constructor injection requires all beans are present (not null) when creating a bean
     - Recommended dependancy injection (easy for testing)
   - Setter injection
+    - Not used very often
 - Configuration class
   - Use it to add beans (use `@Bean` annotation together with method defined in configuration class to specify a bean of some types in library (for example `List`)).
     - The method name is the default bean name
@@ -1339,7 +1351,7 @@ An important REST APIs demo: [Antra REST API Demo](https://github.com/AntraJava/
   - `@Getter`
   - `@Setter`
 
-LMS mock link:
+LMS mock link (only supports Chrome):
 
 [Mock link](https://lms-mock.antrasep.com/login)
 
@@ -1517,4 +1529,33 @@ Interview question:
 - Talk about how you use kafka in your project
 - What is Kafka based on 
 
+# 2022-03-08
+Class cancelled.
+
 # 2022-03-09
+
+[Progress tracking link](https://docs.google.com/document/d/1VnTG69otds-HIYP2qKLl3J7vdISVcfSRl--U_ICKXYk/edit)
+
+## Some Questions
+- Spring container
+  - `BeanFactory`: bean instantiation/writing
+  - `ApplicationContext`: built upon 
+- Different between Spring and Spring boot
+
+
+## History and Why
+Why we want to use Spring?
+- Gen 1.0 Web App
+  - J2EE, socket, controller, service, dao, etc.
+  - Drawback:
+    - Each object is created again when it is created
+    - Object can be heavy
+    - Too many duplicate codes (to create those objects)
+      - Tightly coupled
+- Spring
+  - Basis: use singleton design pattern to avoid repeated instantiation of the Java object.
+  - Inversion of Control
+  - Dependency Injection
+    - Field injection
+    - Constructor injection
+    - Setter injection
