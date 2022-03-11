@@ -106,6 +106,9 @@
 - [2022-03-09](#2022-03-09)
   - [Some Questions](#some-questions)
   - [History and Why](#history-and-why)
+- [2022-03-10](#2022-03-10)
+  - [Agile paradigm](#agile-paradigm)
+  - [QA/DevOps](#qadevops)
 
 
 # 2022-01-25
@@ -1559,3 +1562,71 @@ Why we want to use Spring?
     - Field injection
     - Constructor injection
     - Setter injection
+
+# 2022-03-10
+## Agile paradigm
+Discuss the agile/scrum paradigm.
+
+Software design paradigm
+- Waterfall
+- Agile
+
+Basic team architecture
+- Business analyst
+- Product manager
+  - Responsible for determining the workforce of frontend and backend team
+    - How many people assigned to frontend/backend
+    - Divide the project into small pieces
+- Tech lead/staff engineering
+  - Developer
+
+Development cycle and terms:
+- Scrum meeting
+  - The goal is to convert a business use case/requirement into technical details
+  - Product manager discuss the project architecture with tech lead/architect, business analyst
+    - Database?
+    - Backend tech?
+      - Framework?
+      - Where to deploy? (AWS, Azure, GCP)
+    - Frontend tech?
+    - Message queue? (Kafka)
+    - Security?
+- The curated task list will be posted on an information board, which consists a `Sprint`
+  - There are tools to manage the task list board (kanban, pivotal)
+  - Visualizes the task progress
+- A `Sprint` is typically 1/2 weeks. Decoupled from each other.
+- Hot fix
+- Daily standup meeting
+  - Talk about
+    - What you have done yesterday
+    - What is today's plan
+
+## QA/DevOps
+Test
+- Unit test
+  - Jacoco to test the coverage of the unit test
+- Integration test
+- Security test
+- performance test
+
+Use CI/CD pipeline.
+- Use a web hook to monitor the status of the repo
+- When a new push to the repo, CICD is triggered
+  - CI (Continuous integration)
+    - Compile
+    - Run test
+      - Unit test
+      - Integration test
+      - Security
+    - Code quality check
+      - Detect if there is any tech smell
+        - Deprecated API used
+        - Any significant breach
+  - CD (continues deployment)
+    - Deploy the jar package to the cloud (AWS etc.)
+  - Tools
+    - Jenkins
+    - Concourse
+  - Some sensitive information is included in the environment of CICD, not in the application.properties, application.yml
+    - Database login credentials
+
