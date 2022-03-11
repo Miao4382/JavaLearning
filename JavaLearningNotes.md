@@ -109,6 +109,15 @@
 - [2022-03-10](#2022-03-10)
   - [Agile paradigm](#agile-paradigm)
   - [QA/DevOps](#qadevops)
+- [2022-03-11](#2022-03-11)
+  - [Introduction](#introduction)
+  - [Computation in Cloud](#computation-in-cloud)
+  - [Global infrastructure and security](#global-infrastructure-and-security)
+  - [Networking](#networking)
+  - [Storage and Database](#storage-and-database)
+  - [Security](#security)
+  - [Monitor and analytics](#monitor-and-analytics)
+  - [Migration](#migration)
 
 
 # 2022-01-25
@@ -1629,4 +1638,243 @@ Use CI/CD pipeline.
     - Concourse
   - Some sensitive information is included in the environment of CICD, not in the application.properties, application.yml
     - Database login credentials
+
+
+# 2022-03-11
+[Class notes]()
+
+AWS
+- Introduction
+- Compute in Cloud
+- Global infrastrature and security
+- Networking
+- Storage and database
+- Security
+- Monitoring and analysis
+- Migration
+
+AWS certificate
+- Foundational
+- Associate
+- Professional
+  - Solution architect
+  - Dev Ops
+
+## Introduction
+Basic software model: client - server.
+
+Traditionally, the server is located in local. Disadvantages:
+- Cost
+  - Data center
+  - Power
+  - Cooling
+  - Maintenance and monitor
+- Adding and replacing hardware
+- Scalibility is limited
+
+Solution to the local server: cloud computing
+  - On demand IT resources
+  - Pay as you go pricing: how much you pay dependes on how much you use
+  - Provision exactly the right size and type of computing resources
+  - Scaling is instant
+
+**SaaS vs. PaaS vs. IaaS**
+![SaaS vs. PaaS vs. IaaS](./img/saas-vs-paas-vs-iaas.png)
+
+**Deployment model for cloud computing**
+- Public cloud
+  - Everything is put on cloud
+- Private cloud
+  - On premises
+- Hybrid
+  - Partially private and partially public, hybrid
+
+## Computation in Cloud
+
+EC2: Amazon Elastic Compute Cloud
+- Only pay for the computation power
+- Different types
+  - General purpose instance
+    - Provides a balanced computing resource. Usually used as an application server, gaming server (enterprised application)
+  - Compute optimized instance
+  - Memory optimized instance
+  - Accelerate computing instance
+  - Storage optimized instance
+- Pricing
+  - Spot instance: application can withstand interruption, flexible, cheap (up to 90% off!)
+  - Reserved instance: reserve the service for a period of time
+  - On demand instance: ideal for short term, irregular uses
+- Scaling
+  - Auto scaling
+    - A tyoe of horizontal scaling
+    - It is done automatically
+    - Good for fluctuated usage, for example:
+
+      ![Auto scaling diagram](./img/auto-scaling.svg)
+
+- Elastic load balancing
+  - It automatically balances the load between EC2 instances:
+  
+    ![ELB](./img/ELB.svg)
+
+Monolithic Application vs. Microservice Application
+- Difference between monolithic and microservice application
+- We prefer using microservice architecture in AWS
+
+Messaging service
+- SNS (Amazon Simple Notification Service)
+  - Similar with Kafka broker, a publish/subscribe service
+  - Can be subscribed by lambda (event-triggered)
+- SQS (Amazon Simple Queue Service)
+  - Can subscribe the SNS
+
+AWS lambda (serveless)
+- You don't have to manage the server hardware
+- Pay only for the computation time that you used
+- Usage is easy
+  - Upload code to lambda
+  - Set up the trigger for this code
+  - Code will be executed when it is triggered
+  - Only charged by the time the code executed
+
+Virtualization
+- Complete virtualized operating system
+- Virtual machine
+- Hypervisor
+- EC2 is based on virtualization
+
+Containerization
+- Like a light weight virtual machine
+- Example: docker
+
+Amazon containerization
+- ECS (Amazon Elastic Container Service)
+  - Supports docker containers
+  - To deploy docker container on ECS
+- ECR (Amazon Elastic Container Registry/Repository)
+  - Manages all the containers
+- EKS (Amazon Elastic Kubernetes Service)
+  - Kubernates is an open source software to deploy and manage containers at scale
+
+AWS Fargate
+- Manages the server infrastructure
+
+## Global infrastructure and security
+
+- AWS Region/Availability zone
+  - Physical data centers in a particular zone.
+  - Distinct locations within an AWS Region that are engineered to be isolated from failures in other Availability Zones.
+- Edge location
+  - Data centers designed to deliver services with the lowest latency possible.
+  - Cache the data for easier access from distant places
+- AWS Elastic Beanstalk
+  - Provide code and configuration settings to the beanstalk
+  - It deploys the resources necessary to perform the task
+    - Adjust capacity
+    - Load balancing
+    - Automatic scaling
+    - Application health monitoring
+- AWS CloudFormation
+
+## Networking
+VPC (Amazon Virtual Private Cloud)
+
+![VPC](./img/VPC.svg)
+
+- Public subnets
+- Private subnets
+- Internet gateway
+- Virtual private gateway
+
+AWS Direct Connect
+- A network service that provides an alternative to using the Internet to utilize AWS cloud services
+- Establish a dedicated private connection between the data center and VPC
+
+Security
+- ACLs (Network accessing control list)
+  - Virtual firewall to control inbound and outbound traffic at subnet level.
+- Security group
+  - Control the inbound and outbound traffic at instance level (Amazon EC2 instance).
+
+Route 53
+- A DNS web service
+
+## Storage and Database
+- EBS (Amazon Elastic Block Store)
+  - Incremental backup (instead of full backup)
+- S3 (Simple Storage Service)
+  - Object level storage
+    - Stores object and its meta data (images, videos)
+  - Unlimited storage space, pricing depends on the total amount
+  - Maximum file size: 5 GB
+  - S3 storage classes
+    - S3 standard
+    - S3 standard-infrequent access: ideal for in-frequent accessed data
+    - S3 one zone - infrequent access
+      - Normal S3 has multiple zones to store, this is cheaper
+    - S3 intelligent tiering
+      - Access frequency is not known
+    - S3 glacier
+      - Used for data archive
+      - Slow to retrieve
+      - Cheap
+    - S3 glacier deep arch
+      - Cheapest
+      - Takes very long to retrieve the data
+
+Amazon Elastic File Storage
+
+RDS (Relational Database in AWS)
+- Relational database
+- Support different database engines
+  - Aurora (serveless)
+  - PostgreSQL
+  - MySQL
+  - MariaDB
+  - Oracle Database
+  - SQL Server
+
+- Non Relational
+  - DyanmoDB (key-value pair based data store)
+  - Redshift (used as a data warehouse, you can put big data into it and do data analytics).
+
+- ElasticCache
+  - Redis
+  - Memcached
+
+## Security
+Shared responsibility model
+- Customer responsibility (security in cloud)
+- AWS responsibility (security of the cloud)
+
+IAM
+- IAM users, group, rokes
+- IAM policies
+
+IAM Organizations
+
+## Monitor and analytics
+Amazon CloudWatch
+- CloudWatch collects monitoring and operational data in the form of logs, metrics, and events, and visualizes it using automated dashboards so you can get a unified view of your AWS resources, applications, and services that run on AWS and on premises.
+
+AWS CloudTrail
+- Record API calls for your account
+
+## Migration
+Migrate to AWS cloud.
+
+Eight perspectives to consider
+- perspectives
+- business
+- people
+- governance
+- platform
+- Security
+- Operations
+
+Physical devices
+- AWS Snowcone
+- AWS Snowball
+- AWS Snowmobile
+
 
