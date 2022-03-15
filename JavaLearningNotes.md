@@ -121,6 +121,11 @@
 - [2022-03-14](#2022-03-14)
   - [Messaging system](#messaging-system)
   - [Demo project](#demo-project)
+  - [2022-03-15](#2022-03-15)
+    - [JUnit](#junit)
+    - [Mockito](#mockito)
+    - [Rest assured: Unit test for API](#rest-assured-unit-test-for-api)
+    - [Code Review/Analysis](#code-reviewanalysis)
 
 
 # 2022-01-25
@@ -1922,3 +1927,67 @@ What kind of experience you have with AWS?
   - Why do you need this?
 
 AWS API gateway
+
+## 2022-03-15
+Testing, maintaining the quality of the code.
+
+Test
+- Unit test
+- Integration test
+
+### JUnit
+SpringBoot comes with JUnit by default (`spring-boot-starter-test`).
+- JUnit
+- Mockito
+
+Test overview
+- Test is compiled and executed during the Maven test stage
+- `Test` should be included in the class name ()
+- Use `@Test` annotation to include the test method
+- Use `assert` to test the result (verify). They are static method in `Assertions`.
+  - `assertEquals()`
+  - `assertFalse()`
+  - `assertTrue()`
+  - Additional static assert method can be found in `Assertions` class
+- Life cycle of a JUnit test class, use following annotations to define the life cycle of method in the test class
+  - `@BeforeAll`: executed only once before all the method
+  - `@BeforeEach`: executed before each of the test
+  - `@Test`: test method
+  - `@AfterEach`: executed after each of the test
+  - `@AfterAll`: executed only once after all the method
+- `@SpringBootTest`
+  - Can be used to test services by autowiring them into the test class
+
+Development
+- Updating business logic code first and update the test later. Updating old code may fail some previous tests, which indicates the development has broke some portions of the code.
+- We can do test-driven development: write the test first and then update the business logic code
+
+
+### Mockito
+To simulate the behavior of an object. For example, we can create a fake DAO object and let it throw SQL exception to mock such circumstance without actually disconnect the database.
+
+We can test the real dependency and use Mockito to provide a dummy object which is used in the dependency injection.
+- Use `@Mock` to create the empty dependent object
+- Use `@Spy` to create a partially mock object, we can achieve following simultaneously:
+  - Use the method in the object
+  - Define the behavior of the existing method in the object
+
+Use `when()` and `thenReturn()` to define the behavior of the dummy object.
+- Can be used to return the dummy value
+- Can throw exception to mock exception behavior
+
+### Rest assured: Unit test for API
+We can use REST assured framework to test the API. Demo code can be found in [RestDemo](https://github.com/AntraJava/RestDemo).
+
+### Code Review/Analysis
+Code scanning tool
+- Static code analysis
+  - Use predefined rules to scan the code and 
+- 
+
+SonarQube
+
+Interview question
+- Did you do the code review before? How did you do it?
+  - Online code review
+  - Offline code review
