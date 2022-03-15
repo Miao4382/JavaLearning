@@ -118,6 +118,9 @@
   - [Security](#security)
   - [Monitor and analytics](#monitor-and-analytics)
   - [Migration](#migration)
+- [2022-03-14](#2022-03-14)
+  - [Messaging system](#messaging-system)
+  - [Demo project](#demo-project)
 
 
 # 2022-01-25
@@ -1726,7 +1729,7 @@ Messaging service
   - Similar with Kafka broker, a publish/subscribe service
   - Can be subscribed by lambda (event-triggered)
 - SQS (Amazon Simple Queue Service)
-  - Can subscribe the SNS
+  - Can subscribe the SNS (SNS will push message to different SQS that subscribes this SNS, this is how AWS achieves topic)
 
 AWS lambda (serveless)
 - You don't have to manage the server hardware
@@ -1878,3 +1881,44 @@ Physical devices
 - AWS Snowmobile
 
 
+
+# 2022-03-14
+Review.
+
+## Messaging system
+- Messaging System
+  - Not as important as Spring in interview
+  - Just need to study the basics
+  - Two main flavors
+    - Java Messaging System (JMS)
+      - JavaEE Specifications
+        - ActiveMQ
+        - IBM MQ Series
+      - AMQP (Advanced Message Queue Protocol)
+        - Rabbit MQ
+
+- Messaging system in distributed system
+  - Distributed services talk to messaging system instead of other services
+  - Despite the advantages, messaging systems bring some overhead
+  - Asynchronous system
+
+- Kafka
+  - Designed for distribution
+  - Not identical to messaging system
+  - Only have topic, no queue
+
+- Interview questions
+  - What messaging system are you familiar with
+  - Why we need to use messaging system
+
+## Demo project
+[Reporting System AWS](https://github.com/AntraJava/reporting_system_aws)
+
+What kind of experience you have with AWS?
+- AWS S3 is a good starting point
+- AWS Lambda function
+- Come up use case for the experience
+  - The detail of the use case
+  - Why do you need this?
+
+AWS API gateway
