@@ -126,6 +126,9 @@
     - [Mockito](#mockito)
     - [Rest assured: Unit test for API](#rest-assured-unit-test-for-api)
     - [Code Review/Analysis](#code-reviewanalysis)
+- [2022-03-16](#2022-03-16)
+  - [CI/CD](#cicd)
+  - [Agile](#agile)
 
 
 # 2022-01-25
@@ -1991,3 +1994,32 @@ Interview question
 - Did you do the code review before? How did you do it?
   - Online code review
   - Offline code review
+
+# 2022-03-16
+
+## CI/CD
+CI/CD (Continuous integration and continuous delivery). The basic project structure:
+![Basic project structure](./img/basic-project-structure.svg)
+
+- Manual deployment
+  - After getting the package, manually deploy it on the server
+- CI/CD
+  - Make sure code is always ready to deploy
+  - Check CI/CD pipeline in `Java Architecture.pdf`
+
+Interview question
+- Do you have any experience with CI/CD?
+  - It is OK to say no experience in writing Jenkins script, you are just the user
+- Why do we need the CI/CD
+
+## Agile
+Sprint: usually a period of 2 weeks.
+- Planning meeting: assign story
+- Daily standup meeting: scrum meeting
+  - What did I do yesterday
+  - What I will do today
+  - My roadblocker
+- Retrospective meeting
+
+Issue tracking system (tools): Jira.
+
