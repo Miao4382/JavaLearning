@@ -129,6 +129,7 @@
 - [2022-03-16](#2022-03-16)
   - [CI/CD](#cicd)
   - [Agile](#agile)
+- [2022-03-17](#2022-03-17)
 
 
 # 2022-01-25
@@ -2023,3 +2024,51 @@ Sprint: usually a period of 2 weeks.
 
 Issue tracking system (tools): Jira.
 
+# 2022-03-17
+Recap, following the SEP Java Learning Guide.
+
+Less important
+- JVM
+- Serialization
+- Database
+  - Don't put too much effort in database
+- ORM
+- Servlet
+- Spring security
+  - Just mention the configuration is done by other members
+
+
+Important part
+- Core Java
+  - Class elements
+    - `hashCode()`
+    - `equals()`
+  - Multithreading
+    - Make the class stateless
+    - Use containers in Concurrent package
+    - Use `Lcok`
+    - `synchronized` keyword (last resort, because it cost performance)
+    - Use case of multithreading
+      - Rarely use multithreading in the project
+      - Use multithread to call multiple microservices to get their result (consume multiple APIs)
+      - Multiple database interaction
+- Database
+  - Try one nosql database
+- Spring
+- Spring Boot (*)
+  - Actuator
+    - Provides metrics similar to `jconsole`
+- Web Services
+- AWS
+  - S3
+    - Backup database (dump), save it to S3
+    - User upload files and resources
+  - SQS
+  - Lambda
+- JWT (Json Web Token)
+- Messaging system (kafka)
+- TDD/BDD
+  - Test Driven Development
+  - Behavior Driven Development
+- Property management
+  - Spring `@Profile` annotation
