@@ -1,0 +1,7 @@
+eureka:
+  client:
+    # tell euraka server that don't register with other eureka server (avoid console error messages)
+    fetchRegistry: false
+    registerWithEureka: false
+server:
+  port: 8761

@@ -9,7 +9,10 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>customer</module>
+        <module>movie-info-service</module>
+        <module>movie-catalog-service</module>
+        <module>movie-ratings-data-service</module>
+        <module>service-discovery</module>
     </modules>
 
     <name>microservices-demo</name>
@@ -20,8 +23,11 @@
         <maven.compiler.target>17</maven.compiler.target>
         <spring.boot.dependencies.version>2.5.10</spring.boot.dependencies.version>
         <spring.boot.maven.plugin.version>2.5.10</spring.boot.maven.plugin.version>
+        <spring-cloud.version>2020.0.5</spring-cloud.version>
     </properties>
 
+    <!-- Dependency added here will be available in sub modules (you still need to include them in the sub module. We
+    can control the version of the dependency here. Note that we still need to declare the dependency in sub module -->
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -31,9 +37,17 @@
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
+    <!-- Dependency declared here will be included in sub module. No need to declare them in the sub module -->
     <dependencies>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -47,6 +61,7 @@
     </dependencies>
 
     <build>
+        <!-- Fix the plugin versions using plugin management. (plugins imported in sub modules use the same version) -->
         <pluginManagement>
             <plugins>
                 <plugin>
