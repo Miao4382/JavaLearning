@@ -10,43 +10,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="78645c85-816a-49f9-b823-ba41cad86c5d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/movie_info_service__JAR.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/movie-catalog-service/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/movie-catalog-service/src/main/java/com/example/moviecatalogservice/MovieCatalogServiceApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/movie-catalog-service/src/main/java/com/example/moviecatalogservice/configuration/RestTemplateConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/movie-catalog-service/src/main/java/com/example/moviecatalogservice/configuration/WebClientConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/movie-catalog-service/src/main/java/com/example/moviecatalogservice/controller/MovieCatalogResourceController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/movie-catalog-service/src/main/java/com/example/moviecatalogservice/model/CatalogItem.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/movie-catalog-service/src/main/java/com/example/moviecatalogservice/model/Movie.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/movie-catalog-service/src/main/java/com/example/moviecatalogservice/model/Rating.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/movie-catalog-service/src/main/java/com/example/moviecatalogservice/model/UserCatalogItem.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/movie-catalog-service/src/main/java/com/example/moviecatalogservice/model/UserRating.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/movie-catalog-service/src/main/resources/application.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/movie-info-service/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/movie-info-service/src/main/java/com/example/movieinfoservice/MovieInfoServiceApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/movie-info-service/src/main/java/com/example/movieinfoservice/controller/MovieInfoController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/movie-info-service/src/main/java/com/example/movieinfoservice/model/Movie.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/movie-info-service/src/main/resources/application.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/movie-ratings-data-service/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/movie-ratings-data-service/src/main/java/com/example/movieratingsdataservice/MovieRatingsDataServiceApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/movie-ratings-data-service/src/main/java/com/example/movieratingsdataservice/controller/MovieRatingDataController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/movie-ratings-data-service/src/main/java/com/example/movieratingsdataservice/model/Rating.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/movie-ratings-data-service/src/main/java/com/example/movieratingsdataservice/model/UserRating.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/movie-ratings-data-service/src/main/resources/application.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/service-discovery/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/service-discovery/src/main/java/com/example/servicediscovery/ServiceDiscoveryApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/service-discovery/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../JavaLearningNotes.md" beforeDir="false" afterPath="$PROJECT_DIR$/../JavaLearningNotes.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/c2ec2d9c-a91d-429b-969f-71358fa3ca1b.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/c2ec2d9c-a91d-429b-969f-71358fa3ca1b.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/customer/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/customer/src/main/java/com/example/customer/CustomerApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/movie-catalog-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/movie-catalog-service/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/movie-info-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/movie-info-service/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/movie-ratings-data-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/movie-ratings-data-service/src/main/resources/application.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/notes.md" beforeDir="false" afterPath="$PROJECT_DIR$/notes.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service-discovery/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/service-discovery/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -163,10 +135,10 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Spring Boot.MovieRatingsDataServiceApplication" />
         <item itemvalue="Spring Boot.MovieCatalogServiceApplication" />
-        <item itemvalue="Spring Boot.ServiceDiscoveryApplication" />
+        <item itemvalue="Spring Boot.MovieRatingsDataServiceApplication" />
         <item itemvalue="Spring Boot.MovieInfoServiceApplication" />
+        <item itemvalue="Spring Boot.ServiceDiscoveryApplication" />
       </list>
     </recent_temporary>
   </component>
@@ -182,7 +154,8 @@
       <workItem from="1647823950284" duration="1926000" />
       <workItem from="1647826915041" duration="11860000" />
       <workItem from="1647915569045" duration="14847000" />
-      <workItem from="1648004400351" duration="4543000" />
+      <workItem from="1648004400351" duration="5918000" />
+      <workItem from="1648428873590" duration="4283000" />
     </task>
     <servers />
   </component>

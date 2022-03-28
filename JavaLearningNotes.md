@@ -130,6 +130,10 @@
   - [CI/CD](#cicd)
   - [Agile](#agile)
 - [2022-03-17](#2022-03-17)
+- [2022-03-18](#2022-03-18)
+  - [Challenge](#challenge)
+- [Study Plans](#study-plans)
+- [2022-03-23](#2022-03-23)
 
 
 # 2022-01-25
@@ -2072,3 +2076,39 @@ Important part
   - Behavior Driven Development
 - Property management
   - Spring `@Profile` annotation
+
+# 2022-03-18
+
+## Challenge
+- Design the story in your resume
+  - Explaining the previous project
+  - Tell me the biggest challenge in your previous project
+- How does day to day work like
+- Why you change the job
+
+Resilience4j (microservices resilient)
+
+# Study Plans
+- Microservices
+  - Basic
+  - Fault tolerance
+- Cloud (AWS)
+- Messaging system
+- Testing
+- NoSQL database
+
+[Evaluation Project (Reporting System)](https://github.com/AntraJava/reporting_system_aws)
+
+
+
+# 2022-03-23
+Pre-marketing meeting
+- Separate session to create resume
+  - asd
+- Sales team give me induction meeting about the sales (marketing)
+- Direct client
+  - Expedia
+    - Seatle
+  - Swift
+    - Virginia
+- 
